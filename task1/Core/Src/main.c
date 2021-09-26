@@ -2,9 +2,9 @@
  * task1, main.c
  * Purpose: create project to demonstrate static memory allocation.
  * 
- * In the program the use of static memory allocation for tasks is demonstrated. The first task switces on the 
- * LEDs on the board in series. The second task switces off the LEDs. The time delays used
- * in each task are sligthly sifferent and it creates nice visual effect (variable length caterpillar). 
+ * In the program the use of static memory allocation for tasks is demonstrated. The first task switches on the 
+ * LEDs on the board in series. The second task switches off the LEDs. The time delays used
+ * in each task are sligthly different and it creates nice visual effect ('variable length caterpillar'). 
  *
  * @author Oleksandr Ushkarenko
  * @version 1.0 25/09/2021
@@ -16,7 +16,7 @@
 
 /*
  * These identifiers are used to determine the microcontroller pins
- * the eight color the LEDs connected to.
+ * the eight color LEDs connected to.
  */
 #define BLUE_LED_1		GPIO_PIN_8
 #define RED_LED_1 		GPIO_PIN_9
@@ -33,7 +33,7 @@
 #define STACK_SIZE 32U
 
 /*
- * These identifiers are used to determine time delays - pauses betwee
+ * These identifiers are used to determine time delays - pauses between
  * the LEDs state changes (LED switches on in one task and switches off in the other task).
  */
 #define LED_ON_DELAY 250U
@@ -48,28 +48,30 @@
  * Declaration of the function prototypes.
  */
 void GPIO_Init(void);
-void led_on_controller_task(void * params);
-void led_off_controller_task(void * params);
+void led_on_controller_task(void *param);
+void led_off_controller_task(void *param);
 void error_handler(void);
 
-
+/*
+ * These variables are used to index arrays in tasks and create visual effects on LEDs.
+ */
 uint32_t led_on_index = 0;
 uint32_t led_off_index = 0;
 
 /*
- * These arrays are used as the task's stack.
+ * These arrays are used as the task's stacks.
  */
 StackType_t task1_stack[STACK_SIZE];
 StackType_t task2_stack[STACK_SIZE];
 
 /*
- * The variables are be used to hold the new task's data structures.
+ * The variables are used to hold the new task's data structures.
  */
 StaticTask_t task1_buff;
 StaticTask_t task2_buff;
 
 /*
- * The variables are used to store task's handle.
+ * The variables are used to store task's handles.
  */
 TaskHandle_t task1_handle;
 TaskHandle_t task2_handle;
@@ -83,8 +85,8 @@ uint16_t led_pins[LEDS_NUM] = {BLUE_LED_1, RED_LED_1, ORANGE_LED_1, GREEN_LED_1,
 /*
  * The main function of the program (the entry point).
  * Demonstration of using the static memory allocation for tasks. Two tasks are created.
- * The first task switces on the LEDs on the board in series. The second task switces off the LEDs.
- * The time delays used in each task are sligthly sifferent and it creates nice visual effect.
+ * The first task switches on the LEDs on the board in series. The second task switches off the LEDs.
+ * The time delays used in each task are sligthly different and it creates nice visual effect.
  */
 int main()
 {
@@ -128,8 +130,10 @@ void GPIO_Init()
 
 /*
  * This is a task function (thread) in which the LEDs on the board are switched on in series.
+ *
+ * @param a value that is passed as the parameter to the created task.
  */
-void led_on_controller_task(void * params)
+void led_on_controller_task(void *param)
 {
 	while(1) {
 		HAL_GPIO_WritePin(GPIOE, led_pins[led_on_index], GPIO_PIN_SET);
@@ -140,8 +144,10 @@ void led_on_controller_task(void * params)
 
 /*
  * This is a task function (thread) in which the LEDs on the board are switched off in series.
+ *
+ * @param a value that is passed as the parameter to the created task.
  */
-void led_off_controller_task(void * params)
+void led_off_controller_task(void *param)
 {
 	while(1) {
 		HAL_GPIO_WritePin(GPIOE, led_pins[led_off_index], GPIO_PIN_RESET);
