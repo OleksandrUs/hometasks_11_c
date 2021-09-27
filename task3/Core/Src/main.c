@@ -5,11 +5,12 @@
  * In the program two tasks are created. For one task the static memory allocation is used, for the other task
  * the dynamic memory allocation is used. In each task the recursive function for the factorial computation
  * is called. The argument of the factorial() function increases gradually and after that the functions for 
- * stack overflow are called in each task. If it is detected that that the task stack is filled more than the half,
+ * stack overflow check are called in each task. If it is detected that that the task stack is filled more than the half,
  * the task is deleted (removed from the RTOS kernels management) and two LEDs are switched on (green LEDs when half stack
  * overflow is detected for task 1, and blue LEDs when half stack overflow is detected for task 2). The stack sizes
  * for each task are different just to demonstrate that the stack overflow (strictly speaking half stack overflow
- * in this example) for both tasks occurs not simultaneously.
+ * in this example) for both tasks occurs not simultaneously.Green blinking LEDs indicates that the tasks 
+ * are in the running mode.
  *
  * @author Oleksandr Ushkarenko
  * @version 1.0 26/09/2021
