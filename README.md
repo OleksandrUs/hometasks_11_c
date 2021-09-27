@@ -23,6 +23,14 @@ in each task are sligthly different and it creates nice visual effect ('variable
 ![](task1.gif)
 
 
+**Task 2 notes**
+
+ * There are two tasks in the program. In the first task the data received from the UART is put into the queue.
+ * In the second task the data read from the queue is used to control the LED states. As the commands the
+ * characters from 'A' to 'H' are used to switch on one of eight LEDs on the board, and the characters
+ * from 'a' to 'h' are used to switch off one of eight LEDs. USART2 is used in the program, so
+ * it is necessary to use USB-RS232 converter (PA2 = TX, PA3 = RX; 9600 baud, 1 stop bit, 8 data bits, no parity).<br>
+
 
 **Task 3 notes**
 
